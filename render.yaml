@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: telegram-referral-wheel-bot
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    healthCheckPath: /health
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: BOT_USERNAME
+        sync: false
+      - key: CHANNEL_ID
+        sync: false
+      - key: CHANNEL_URL
+        value: https://t.me/+CGRBOztPG64wMWMy
+      - key: ADMIN_IDS
+        sync: false
+      - key: RENDER_EXTERNAL_URL
+        sync: false
+      - key: DB_PATH
+        value: /var/data/bot.db
+    disk:
+      name: bot-data
+      mountPath: /var/data
+      sizeGB: 1
